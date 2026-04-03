@@ -1,0 +1,141 @@
+.docTypeRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.btnToggle {
+  background: var(--sec1);
+  color: var(--accent);
+  font-size: 13px;
+  padding: 8px 16px;
+  border: 2px solid var(--sec2);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+.btnToggle:hover { background: var(--sec2); }
+
+.btnFacture {
+  background: var(--facture);
+  border-color: #ec971f;
+  color: #fff;
+  font-size: 13px;
+  padding: 8px 16px;
+  border: 2px solid #ec971f;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btnFacture:hover { background: #ec971f; }
+
+.numeroRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.numeroRow input { flex: 1; }
+
+.modelesRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background: rgba(154,209,212,.1);
+  border-radius: 8px;
+  border: 1px dashed var(--sec2);
+}
+.modelesLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.btnModele {
+  font-size: 12px !important;
+  padding: 6px 12px !important;
+}
+
+.sep {
+  border: none;
+  border-top: 1px solid var(--neutral);
+  margin: 20px 0;
+}
+
+.linesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.linesHeader h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.totalBar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  border-radius: 10px;
+  color: var(--white);
+}
+.totalBar span { font-size: 15px; font-weight: 500; }
+.totalBar strong { font-size: 22px; font-weight: 700; }
+
+/* Paiement */
+.paySection {
+  margin-bottom: 18px;
+}
+.payTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 12px;
+}
+.payStatut {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.payStatut.success { background: #d4edda; color: #155724; }
+.payStatut.warning { background: #fff3cd; color: #856404; }
+
+.watermarkLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.watermarkLabel input {
+  width: 16px; height: 16px;
+  accent-color: var(--primary);
+  padding: 0;
+  border: none;
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}

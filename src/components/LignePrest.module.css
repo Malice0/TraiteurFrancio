@@ -1,0 +1,60 @@
+.ligne {
+  display: grid;
+  grid-template-columns: 140px 1fr 80px 110px 110px 40px;
+  gap: 8px;
+  align-items: end;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  background: #f9fbfc;
+  border-radius: 8px;
+  border: 1px solid var(--neutral);
+  animation: fadeSlideIn .25s ease;
+}
+.ligne label { font-size: 11px; margin-bottom: 2px; }
+.ligne input, .ligne select { padding: 8px 10px; font-size: 14px; }
+
+.separator {
+  grid-template-columns: 1fr 40px;
+  background: transparent;
+  border-style: dashed;
+  opacity: .6;
+}
+
+.descCol { grid-column: span 1; }
+
+.montant {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--primary);
+  padding: 8px 10px;
+  text-align: right;
+  background: rgba(154,209,212,.15);
+  border-radius: 8px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btnRemove {
+  width: 36px; height: 36px;
+  border: none; border-radius: 8px;
+  background: rgba(217,83,79,.1);
+  color: var(--danger);
+  cursor: pointer; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  align-self: end;
+  transition: background var(--transition), transform var(--transition);
+}
+.btnRemove:hover {
+  background: var(--danger);
+  color: var(--white);
+  transform: scale(1.08);
+}
+
+@media (max-width: 960px) {
+  .ligne {
+    grid-template-columns: 1fr 1fr;
+  }
+  .descCol { grid-column: 1 / -1; }
+}
