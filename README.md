@@ -33,6 +33,13 @@ VITE_APP_BASE_URL=/SiteTikazDevis/
 VITE_API_BASE_URL=https://mon-site-api.netlify.app/.netlify/functions
 ```
 
+Pour ce projet deploye sur GitHub Pages :
+
+```env
+VITE_APP_BASE_URL=/TraiteurFrancio/
+VITE_API_BASE_URL=https://sprightly-starlight-393440.netlify.app/.netlify/functions
+```
+
 ## Demarrage local
 
 ```bash
@@ -45,6 +52,14 @@ Pour tester aussi les fonctions Netlify en local :
 ```bash
 npx netlify dev
 ```
+
+## GitHub Pages
+
+Le projet inclut un workflow GitHub Actions :
+
+- [.github/workflows/deploy-pages.yml](C:\Users\amali\Documents\Entreprenariat\Francio\SiteTikazDevis\.github\workflows\deploy-pages.yml)
+
+Il build l'application Vite et publie le dossier `dist` sur GitHub Pages a chaque push sur `main`.
 
 ## Endpoints disponibles
 
