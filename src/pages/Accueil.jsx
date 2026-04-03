@@ -25,6 +25,8 @@ export default function Accueil() {
   const [date, setDate] = useState(today)
   const [clientSelId, setClientSelId] = useState('')
   const [clientNom, setClientNom] = useState('')
+  const [clientTelephone, setClientTelephone] = useState('')
+  const [clientEmail, setClientEmail] = useState('')
   const [intitule, setIntitule] = useState('')
   const [lignes, setLignes] = useState([newLigne()])
   const [rib, setRib] = useState('')
@@ -39,7 +41,12 @@ export default function Accueil() {
   const printRef = useRef()
 
   const clientNotion = clients.find((client) => client.id === clientSelId)
-  const clientPourApercu = clientNotion || { nom: clientNom }
+  const clientPourApercu = {
+    ...(clientNotion || {}),
+    nom: clientNotion?.nom || clientNom,
+    telephone: clientTelephone || clientNotion?.telephone || '',
+    email: clientEmail || clientNotion?.email || '',
+  }
   const clientActif = clientNotion?.nom || clientNom || 'Aucun client choisi'
 
   const total = lignes
@@ -81,13 +88,15 @@ export default function Accueil() {
       `Bonjour ${nom},\n\nVeuillez trouver votre ${docType === 'facture' ? 'facture' : 'devis'} ndeg ${numero}.\n\nMontant total : ${formatCurrency(total)}\n\nCordialement,\nFCMA Ti Kaz Traiteur\nTel : 0694 911 486`,
     )
 
-    window.location.href = `mailto:${clientNotion?.email || ''}?subject=${subject}&body=${body}`
-  }, [numero, docType, clientNom, clientNotion, total])
+    window.location.href = `mailto:${clientEmail || clientNotion?.email || ''}?subject=${subject}&body=${body}`
+  }, [numero, docType, clientNom, clientNotion, clientEmail, total])
 
   const handleReset = useCallback(() => {
     nextDocument()
     setClientSelId('')
     setClientNom('')
+    setClientTelephone('')
+    setClientEmail('')
     setIntitule('')
     setLignes([newLigne()])
     setDate(new Date().toISOString().slice(0, 10))
@@ -100,6 +109,22 @@ export default function Accueil() {
   const addLigne = () => setLignes((current) => [...current, newLigne()])
   const updateLigne = (id, updated) => setLignes((current) => current.map((ligne) => (ligne.id === id ? updated : ligne)))
   const removeLigne = (id) => setLignes((current) => current.filter((ligne) => ligne.id !== id))
+  const handleClientSelect = (value) => {
+    setClientSelId(value)
+
+    if (!value) {
+      setClientNom('')
+      return
+    }
+
+    const selectedClient = clients.find((client) => client.id === value)
+
+    if (selectedClient) {
+      setClientNom(selectedClient.nom || '')
+      setClientTelephone(selectedClient.telephone || '')
+      setClientEmail(selectedClient.email || '')
+    }
+  }
 
   return (
     <div className="app-container">
@@ -165,10 +190,7 @@ export default function Accueil() {
               ) : (
                 <select
                   value={clientSelId}
-                  onChange={(event) => {
-                    setClientSelId(event.target.value)
-                    setClientNom('')
-                  }}
+                  onChange={(event) => handleClientSelect(event.target.value)}
                 >
                   <option value="">Saisir manuellement</option>
                   {clients.map((client) => (
@@ -207,6 +229,28 @@ export default function Accueil() {
                 placeholder="Ex : Cocktail dinatoire mariage 60 personnes"
                 value={intitule}
                 onChange={(event) => setIntitule(event.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label>Telephone</label>
+              <input
+                type="tel"
+                placeholder="0694 00 00 00"
+                value={clientTelephone}
+                onChange={(event) => setClientTelephone(event.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                placeholder="client@email.com"
+                value={clientEmail}
+                onChange={(event) => setClientEmail(event.target.value)}
               />
             </div>
           </div>

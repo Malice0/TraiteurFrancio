@@ -25,7 +25,7 @@ function parseNotionError(status, message) {
   if (status === 400) return message || 'Requete invalide.'
   if (status === 401) return 'Token Notion invalide. Verifiez NOTION_TOKEN dans Netlify.'
   if (status === 403) return "Acces refuse. Partagez chaque base Notion avec l'integration."
-  if (status === 404) return "Base ou endpoint introuvable. Verifiez l'ID de la base et le partage Notion."
+  if (status === 404) return "Base ou endpoint introuvable. Verifiez surtout les IDs de base Notion dans Netlify et le partage de chaque base."
   if (status === 429) return 'Trop de requetes Notion. Reessayez dans quelques secondes.'
   if (status >= 500) return "Erreur serveur Notion. Verifiez les variables d'environnement cote Netlify."
 

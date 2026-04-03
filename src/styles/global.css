@@ -1,7 +1,7 @@
 :root {
   --primary: #007ea7;
   --primary-dark: #025a77;
-  --accent: #143642;
+  --accent: #1d6e8b;
   --accent-soft: #e4f0ef;
   --gold: #d8b25b;
   --sand: #f6efe3;
@@ -35,7 +35,7 @@ html {
 }
 
 body {
-  font-family: 'Instrument Sans', 'Segoe UI', sans-serif;
+  font-family: 'Atkinson Hyperlegible', 'Segoe UI', sans-serif;
   font-size: 16px;
   color: var(--text);
   background:
@@ -346,7 +346,6 @@ input[readonly] {
 
 .brand-title {
   display: block;
-  font-family: 'Fraunces', Georgia, serif;
   font-size: 27px;
   line-height: 1.04;
   letter-spacing: -0.03em;
@@ -440,7 +439,6 @@ input[readonly] {
 }
 
 .helper-card h3 {
-  font-family: 'Fraunces', Georgia, serif;
   font-size: 24px;
   line-height: 1.05;
   margin-bottom: 8px;
