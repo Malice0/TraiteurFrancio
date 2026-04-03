@@ -21,12 +21,6 @@ GitHub Pages ne peut pas executer de fonctions serveur ni cacher un token Notion
 - `NOTION_DB_CLIENTS`
 - `NOTION_DB_COMMANDES`
 
-Valeurs actuelles a utiliser pour les IDs de base Notion :
-
-- `NOTION_DB_CLIENTS=c1758a65-4193-42d0-9463-051774121651`
-- `NOTION_DB_DEVIS=977ac1f7-7db2-444d-820d-ed1a65cda52d`
-- `NOTION_DB_COMMANDES=834acc48-80c4-4d76-8817-51450366450f`
-
 ### Cote frontend Vite
 
 - `VITE_APP_BASE_URL`
