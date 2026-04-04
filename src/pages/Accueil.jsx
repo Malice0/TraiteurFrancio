@@ -5,6 +5,7 @@ import ApercuDevis from '../components/ApercuDevis'
 import { useNumerotation } from '../hooks/useNumerotation'
 import { useNotionClients, useSaveDocument } from '../hooks/useNotion'
 import { useModeles } from '../hooks/useModeles'
+import { generatePdfFromElement } from '../utils/pdf'
 import styles from './Accueil.module.css'
 
 function formatCurrency(value) {
@@ -50,7 +51,7 @@ export default function Accueil() {
   const clientActif = clientNotion?.nom || clientNom || 'Aucun client choisi'
 
   const total = lignes
-    .filter((ligne) => ligne.type !== '---separator---')
+    .filter((ligne) => ligne.type !== '---separator---' && ligne.type !== 'Commentaire')
     .reduce((sum, ligne) => sum + (parseFloat(ligne.qty) || 0) * (parseFloat(ligne.price) || 0), 0)
 
   const totalRecu = (parseFloat(acompte) || 0) + (parseFloat(solde) || 0)
@@ -68,17 +69,27 @@ export default function Accueil() {
   })
 
   const handleSaveNotion = useCallback(async () => {
-    const ok = await saveDocument({
-      numero,
-      type: docType,
-      clientId: clientSelId || null,
-      intitule,
-      lignes,
-      total,
-      date,
-    })
+    try {
+      const pdf = await generatePdfFromElement(
+        printRef.current,
+        `${docType === 'facture' ? 'Facture' : 'Devis'}_${numero}.pdf`,
+      )
 
-    if (ok) nextDocument()
+      const ok = await saveDocument({
+        numero,
+        type: docType,
+        clientId: clientSelId || null,
+        intitule,
+        lignes,
+        total,
+        date,
+        pdf,
+      })
+
+      if (ok) nextDocument()
+    } catch (error) {
+      console.error(error)
+    }
   }, [numero, docType, clientSelId, intitule, lignes, total, date, saveDocument, nextDocument])
 
   const handleEmail = useCallback(() => {

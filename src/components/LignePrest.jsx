@@ -1,13 +1,17 @@
 import styles from './LignePrest.module.css'
 
-const TYPES = ['Plat', "Main d'œuvre", 'Livraison', 'Supplément', '---separator---']
+const TYPES = ['Plat', "Main d'oeuvre", 'Livraison', 'Supplement', 'Commentaire', '---separator---']
 
-function formatCurrency(v) {
-  return v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'
+function formatCurrency(value) {
+  return value.toLocaleString('fr-FR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }) + ' EUR'
 }
 
 export default function LignePrest({ ligne, onChange, onRemove }) {
-  const isSep = ligne.type === '---separator---'
+  const isSeparator = ligne.type === '---separator---'
+  const isComment = ligne.type === 'Commentaire'
   const montant = (parseFloat(ligne.qty) || 0) * (parseFloat(ligne.price) || 0)
 
   function handleChange(field, value) {
@@ -15,62 +19,63 @@ export default function LignePrest({ ligne, onChange, onRemove }) {
   }
 
   return (
-    <div className={`${styles.ligne} ${isSep ? styles.separator : ''}`}>
-      {/* Type */}
+    <div className={`${styles.ligne} ${isSeparator ? styles.separator : ''} ${isComment ? styles.commentaire : ''}`}>
       <div className="form-group">
         <label>Type</label>
-        <select value={ligne.type} onChange={e => handleChange('type', e.target.value)}>
-          {TYPES.map(t => <option key={t} value={t}>{t === '---separator---' ? '── Saut de ligne ──' : t}</option>)}
+        <select value={ligne.type} onChange={(event) => handleChange('type', event.target.value)}>
+          {TYPES.map((type) => (
+            <option key={type} value={type}>
+              {type === '---separator---' ? '--- Saut de ligne ---' : type}
+            </option>
+          ))}
         </select>
       </div>
 
-      {/* Description */}
-      {!isSep && (
+      {!isSeparator && (
         <div className={`form-group ${styles.descCol}`}>
-          <label>Description</label>
+          <label>{isComment ? 'Commentaire' : 'Description'}</label>
           <input
             type="text"
             value={ligne.desc}
-            placeholder="Ex : Colombo poulet, riz blanc"
-            onChange={e => handleChange('desc', e.target.value)}
+            placeholder={isComment ? 'Ex : Allergies, remarques, modalites...' : 'Ex : Colombo poulet, riz blanc'}
+            onChange={(event) => handleChange('desc', event.target.value)}
           />
         </div>
       )}
 
-      {/* Quantité */}
-      {!isSep && (
+      {!isSeparator && !isComment && (
         <div className="form-group">
-          <label>Qté</label>
+          <label>Qte</label>
           <input
-            type="number" min="0"
+            type="number"
+            min="0"
             value={ligne.qty}
-            onChange={e => handleChange('qty', e.target.value)}
+            onChange={(event) => handleChange('qty', event.target.value)}
           />
         </div>
       )}
 
-      {/* Prix unitaire */}
-      {!isSep && (
+      {!isSeparator && !isComment && (
         <div className="form-group">
-          <label>Prix unit. (€)</label>
+          <label>Prix unit. (EUR)</label>
           <input
-            type="number" min="0" step="0.01"
+            type="number"
+            min="0"
+            step="0.01"
             value={ligne.price}
-            onChange={e => handleChange('price', e.target.value)}
+            onChange={(event) => handleChange('price', event.target.value)}
           />
         </div>
       )}
 
-      {/* Montant calculé */}
-      {!isSep && (
+      {!isSeparator && !isComment && (
         <div className="form-group">
           <label>Montant</label>
           <div className={styles.montant}>{formatCurrency(montant)}</div>
         </div>
       )}
 
-      {/* Supprimer */}
-      <button className={styles.btnRemove} onClick={onRemove} title="Supprimer">✕</button>
+      <button className={styles.btnRemove} onClick={onRemove} title="Supprimer">x</button>
     </div>
   )
 }

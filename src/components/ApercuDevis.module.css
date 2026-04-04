@@ -93,6 +93,11 @@
 .amount { font-weight: 600; color: var(--primary); }
 .empty  { text-align: center; padding: 30px; color: #aaa; font-size: 14px; }
 .sepRow td { padding: 4px 0 !important; border-bottom: 1px dashed var(--neutral) !important; }
+.commentRow {
+  font-style: italic;
+  color: var(--text-soft);
+  background: rgba(20, 54, 66, 0.04);
+}
 
 /* Total */
 .totalRow {

@@ -154,14 +154,19 @@ export function useSaveDocument() {
     setStatus(null)
 
     try {
-      await fetchJson('notion-save-document', {
+      const data = await fetchJson('notion-save-document', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
 
       const label = payload.type === 'facture' ? 'Facture' : 'Devis'
-      setStatus({ type: 'success', msg: `${label} ${payload.numero} enregistre dans Notion.` })
+      setStatus({
+        type: data?.pdfUploaded === false ? 'warning' : 'success',
+        msg: data?.pdfUploaded === false
+          ? `${label} ${payload.numero} enregistre dans Notion, mais le PDF n'a pas ete ajoute.`
+          : `${label} ${payload.numero} enregistre dans Notion.`,
+      })
       return true
     } catch (err) {
       setStatus({ type: 'error', msg: parseNotionError(err.status, err.code || err.message) })

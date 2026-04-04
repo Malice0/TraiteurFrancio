@@ -20,6 +20,11 @@
   opacity: .6;
 }
 
+.commentaire {
+  grid-template-columns: 140px 1fr 40px;
+  background: rgba(255,255,255,.92);
+}
+
 .descCol { grid-column: span 1; }
 
 .montant {

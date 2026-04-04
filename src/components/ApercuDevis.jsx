@@ -24,7 +24,7 @@ const ApercuDevis = forwardRef(function ApercuDevis(
   ref,
 ) {
   const total = lignes
-    .filter((ligne) => ligne.type !== '---separator---')
+    .filter((ligne) => ligne.type !== '---separator---' && ligne.type !== 'Commentaire')
     .reduce((sum, ligne) => sum + (parseFloat(ligne.qty) || 0) * (parseFloat(ligne.price) || 0), 0)
 
   const acompte = parseFloat(paiement?.acompte) || 0
@@ -80,6 +80,14 @@ const ApercuDevis = forwardRef(function ApercuDevis(
               return (
                 <tr key={ligne.id} className={styles.sepRow}>
                   <td colSpan={4}></td>
+                </tr>
+              )
+            }
+
+            if (ligne.type === 'Commentaire') {
+              return (
+                <tr key={ligne.id}>
+                  <td colSpan={4} className={styles.commentRow}>{ligne.desc || '-'}</td>
                 </tr>
               )
             }
