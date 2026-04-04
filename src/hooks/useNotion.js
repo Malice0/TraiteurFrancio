@@ -86,6 +86,32 @@ export function useNotionClients() {
   return { clients, loading, error, refetch: fetchClients }
 }
 
+export function useNotionDocuments() {
+  const [documents, setDocuments] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const fetchDocuments = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+
+    try {
+      const data = await fetchJson('notion-documents')
+      setDocuments(Array.isArray(data) ? data : [])
+    } catch (err) {
+      setError(err.code || err.message)
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchDocuments()
+  }, [fetchDocuments])
+
+  return { documents, loading, error, refetch: fetchDocuments }
+}
+
 export function useNotionHealth() {
   const [status, setStatus] = useState(null)
   const [message, setMessage] = useState('')

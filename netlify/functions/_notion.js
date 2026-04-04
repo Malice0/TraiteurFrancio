@@ -47,9 +47,24 @@ async function notionFetch(path, { token, method = 'GET', body } = {}) {
   return data
 }
 
+function getPlainTextFromRichText(items = []) {
+  return items.map((item) => item.plain_text || '').join('')
+}
+
+function getTitleValue(property) {
+  return getPlainTextFromRichText(property?.title || [])
+}
+
+function getRichTextValue(property) {
+  return getPlainTextFromRichText(property?.rich_text || [])
+}
+
 module.exports = {
   CORS_HEADERS,
   json,
   getEnv,
+  getPlainTextFromRichText,
+  getRichTextValue,
+  getTitleValue,
   notionFetch,
 }
